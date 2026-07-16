@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { HERO, QUICK_FACTS } from '../../data/dummyData';
 import { Button } from '../ui/Button';
 import { PortraitPanel } from '../ui/PortraitPanel';
+import { Sparkle } from '../ui/Sparkle';
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -59,17 +60,30 @@ export function Hero() {
               {HERO.greeting}
             </motion.p>
 
-            <h1 className="font-display overflow-hidden py-1 text-[19vw] leading-[0.95] font-medium text-ink italic sm:text-[15vw] lg:text-[7vw]">
+            <div className="relative inline-block w-fit">
+              <h1 className="font-display overflow-hidden py-1 text-[19vw] leading-[0.95] font-medium text-ink italic sm:text-[15vw] lg:text-[7vw]">
+                <motion.span
+                  custom={0}
+                  variants={lineVariants}
+                  initial="hidden"
+                  animate="show"
+                  className="inline-block"
+                >
+                  {HERO.name}
+                </motion.span>
+              </h1>
               <motion.span
-                custom={0}
-                variants={lineVariants}
-                initial="hidden"
-                animate="show"
-                className="inline-block"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: [1, 1.15, 1] }}
+                transition={{
+                  opacity: { delay: 1.4, duration: 0.5 },
+                  scale: { delay: 1.4, duration: 2.4, repeat: Infinity, ease: 'easeInOut' },
+                }}
+                className="absolute top-1 -right-3 sm:top-2 sm:-right-4"
               >
-                {HERO.name}
+                <Sparkle className="h-5 w-5 text-accent-strong sm:h-6 sm:w-6" />
               </motion.span>
-            </h1>
+            </div>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}

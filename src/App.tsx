@@ -11,6 +11,7 @@ import { Experience } from './components/sections/Experience';
 import { Hero } from './components/sections/Hero';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
+import { WaveDivider } from './components/layout/WaveDivider';
 import { NAV_LINKS, PROJECTS } from './data/dummyData';
 import { useActiveSection } from './hooks/useActiveSection';
 
@@ -34,17 +35,23 @@ function App() {
 
       <main className="relative z-10">
         <Hero />
+        <WaveDivider tone="surface" />
         <About />
+        <WaveDivider tone="accent-2" flip />
         <Experience />
+        <WaveDivider tone="accent" />
         <Skills />
+        <WaveDivider tone="surface" flip />
         <Projects
           selectedId={selectedProjectId}
           onSelect={setSelectedProjectId}
         />
+        <WaveDivider tone="accent-2" />
         <CaseStudy
           selectedId={selectedProjectId}
           onSelect={setSelectedProjectId}
         />
+        <WaveDivider tone="accent" flip />
         <Contact />
       </main>
     </div>

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { CASE_STUDIES, PROJECTS } from '../../data/dummyData';
 import { DeviceFrame } from '../ui/DeviceFrame';
+import { OrnamentDivider } from '../ui/OrnamentDivider';
 import { RevealGroup, RevealItem } from '../ui/Reveal';
 import { SectionHeading } from '../ui/SectionHeading';
 
@@ -126,7 +127,8 @@ export function CaseStudy({ selectedId, onSelect }: CaseStudyProps) {
             ))}
           </RevealGroup>
 
-          <RevealItem className="mt-20 max-w-2xl border-l-2 border-accent pl-6">
+          <RevealItem className="mt-20 max-w-2xl">
+            <OrnamentDivider className="mb-8 max-w-[220px]" />
             <p className="text-lg leading-relaxed text-ink italic">
               &ldquo;{study.testimonial.quote}&rdquo;
             </p>

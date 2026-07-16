@@ -1,5 +1,6 @@
 import { Download } from 'lucide-react';
 import { CONTACT, RESUME_URL, SOCIAL_LINKS } from '../../data/dummyData';
+import { OrnamentDivider } from '../ui/OrnamentDivider';
 import { RevealGroup, RevealItem } from '../ui/Reveal';
 import { SectionHeading } from '../ui/SectionHeading';
 
@@ -62,9 +63,12 @@ export function Contact() {
         </RevealItem>
       </RevealGroup>
 
-      <div className="mt-24 flex flex-col gap-4 border-t border-line pt-6 text-xs text-mute sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} Yoon. All rights reserved.</span>
-        <span className="font-mono uppercase">Designed &amp; built with care.</span>
+      <div className="mt-24">
+        <OrnamentDivider className="mb-6" />
+        <div className="flex flex-col gap-4 text-xs text-mute sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Yoon. All rights reserved.</span>
+          <span className="font-mono uppercase">Designed &amp; built with care.</span>
+        </div>
       </div>
     </section>
   );
