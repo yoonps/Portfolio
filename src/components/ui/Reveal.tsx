@@ -6,6 +6,7 @@ interface RevealProps {
   children: ReactNode;
   className?: string;
   as?: 'div' | 'section';
+  id?: string;
   stagger?: number;
   delay?: number;
   amount?: number;
@@ -14,12 +15,14 @@ interface RevealProps {
 export function RevealGroup({
   children,
   className,
+  id,
   stagger = 0.12,
   delay = 0,
   amount = 0.3,
 }: RevealProps) {
   return (
     <motion.div
+      id={id}
       className={className}
       initial="hidden"
       whileInView="show"

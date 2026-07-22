@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { PROJECTS } from '../../data/dummyData';
 import { SectionHeading } from '../ui/SectionHeading';
 import { ProjectCard } from '../ui/ProjectCard';
@@ -15,7 +15,7 @@ export function Projects({ selectedId, onSelect }: ProjectsProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [maxScroll, setMaxScroll] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const measure = () => {
       const trackWidth = trackRef.current?.scrollWidth ?? 0;
       const viewportWidth = stickyRef.current?.clientWidth ?? 0;
@@ -32,9 +32,14 @@ export function Projects({ selectedId, onSelect }: ProjectsProps) {
     target: containerRef,
     offset: ['start start', 'end end'],
   });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 300,
+    damping: 40,
+    mass: 0.4,
+  });
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, -maxScroll]);
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const x = useTransform(smoothProgress, [0, 1], [0, -maxScroll]);
+  const progressWidth = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
 
   return (
     <section id="work" className="relative">
@@ -54,7 +59,7 @@ export function Projects({ selectedId, onSelect }: ProjectsProps) {
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className="flex gap-6 px-6 md:px-12 lg:px-24"
+            className="flex gap-6 px-6 will-change-transform md:px-12 lg:px-24"
           >
             {PROJECTS.map((project) => (
               <ProjectCard

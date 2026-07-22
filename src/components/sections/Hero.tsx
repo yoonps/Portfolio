@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { HERO, QUICK_FACTS } from '../../data/dummyData';
 import { Button } from '../ui/Button';
@@ -11,11 +11,16 @@ export function Hero() {
     target: ref,
     offset: ['start start', 'end start'],
   });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 260,
+    damping: 32,
+    mass: 0.4,
+  });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
+  const opacity = useTransform(smoothProgress, [0, 0.9], [1, 0]);
+  const y = useTransform(smoothProgress, [0, 1], ['0%', '20%']);
+  const scale = useTransform(smoothProgress, [0, 1], [1, 0.94]);
+  const portraitY = useTransform(smoothProgress, [0, 1], ['0%', '-12%']);
 
   const lineVariants = {
     hidden: { y: '110%' },
@@ -35,7 +40,7 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-6 pt-28 pb-12 md:px-12 lg:px-24"
     >
-      <motion.div style={{ opacity, y, scale }} className="flex flex-col">
+      <motion.div style={{ opacity, y, scale }} className="flex flex-col will-change-transform">
         <div className="flex flex-col gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <div className="max-w-2xl flex-1">
             <motion.div
